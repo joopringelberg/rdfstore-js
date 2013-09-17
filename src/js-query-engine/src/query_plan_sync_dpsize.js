@@ -11,7 +11,7 @@ QueryPlanDPSize.variablesInBGP = function(bgp) {
 
     var components =  bgp.value || bgp;
     variables  = [];
-    for(var comp in components) {
+    var comp_keys = Object.keys( components ); for( var comp_i = 0; comp_i < comp_keys.length; comp_i++ ) { var comp = comp_keys[comp_i];
         if(components[comp] && components[comp].token === "var") {
             variables.push(components[comp].value);
         } else if(components[comp] && components[comp].token === "blank") {
@@ -71,7 +71,7 @@ QueryPlanDPSize.executeAndBGPsGroups = function(bgps) {
 	var newGroupVars = {};
 
         var vars = [];
-        for(var comp in bgp) {
+        var comp_keys = Object.keys( bgp ); for( var comp_i = 0; comp_i < comp_keys.length; comp_i++ ) { var comp = comp_keys[comp_i];
             if(comp != '_cost') {
                 if(bgp[comp].token === 'var') {
                     vars.push(bgp[comp].value);
@@ -87,7 +87,7 @@ QueryPlanDPSize.executeAndBGPsGroups = function(bgps) {
 	var toDelete = [];
 	var toJoin = {};
 
-        for(var nextGroupId in groupVars) {
+        var nextGroupId_keys = Object.keys( groupVars ); for( var nextGroupId_i = 0; nextGroupId_i < nextGroupId_keys.length; nextGroupId_i++ ) { var nextGroupId = nextGroupId_keys[nextGroupId_i];
             var groupVar = groupVars[nextGroupId];
 	    foundGroup = false;
             for(var j=0; j<vars.length; j++) {
@@ -114,7 +114,7 @@ QueryPlanDPSize.executeAndBGPsGroups = function(bgps) {
 	    var acumGroups = [];
 	    var acumId = "";
 	    var acumVars = "";
-	    for(var gid in toJoin) {
+	    var gid_keys = Object.keys( toJoin ); for( var gid_i = 0; gid_i < gid_keys.length; gid_i++ ) { var gid = gid_keys[gid_i];
 		acumId = acumId+gid;
 		acumGroups = acumGroups.concat(groups[gid]);
 		acumVars = groupVars[gid];
@@ -132,7 +132,7 @@ QueryPlanDPSize.executeAndBGPsGroups = function(bgps) {
     }
 
     var acum = [];
-    for(var groupId in groups) {
+    var groupId_keys = Object.keys( groups ); for( var groupId_i = 0; groupId_i < groupId_keys.length; groupId_i++ ) { var groupId = groupId_keys[groupId_i];
         acum.push(groups[groupId]);
     }
 
@@ -182,7 +182,7 @@ QueryPlanDPSize.createJoinTree = function(leftPlan, rightPlan) {
         }
     }
     var ids = [];
-    for(var id in distinct) {
+    var id_keys = Object.keys( distinct ); for( var id_i = 0; id_i < id_keys.length; id_i++ ) { var id = id_keys[id_i];
         ids.push(id);
     }
 
@@ -421,7 +421,7 @@ QueryPlanDPSize.buildBindingsFromRange = function(results, bgp) {
           var binding = {};
           var result  = results[i];
 	  var duplicated = false;
-          for(var comp in bindings) {
+          var comp_keys = Object.keys( bindings ); for( var comp_i = 0; comp_i < comp_keys.length; comp_i++ ) { var comp = comp_keys[comp_i];
               var value = result[comp];
 	      if(binding[bindings[comp]] == null || binding[bindings[comp]] === value) {
 		  binding[bindings[comp]] = value;
@@ -441,7 +441,7 @@ QueryPlanDPSize.buildBindingsFromRange = function(results, bgp) {
 
 // @used
 QueryPlanDPSize.areCompatibleBindings = function(bindingsa, bindingsb) {
-    for(var variable in bindingsa) {
+    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         if(bindingsb[variable]!=null && (bindingsb[variable] != bindingsa[variable])) {
             return false;
         }
@@ -452,7 +452,7 @@ QueryPlanDPSize.areCompatibleBindings = function(bindingsa, bindingsb) {
 
 //QueryPlanDPSize.areCompatibleBindingsStrict = function(bindingsa, bindingsb) {
 //    var foundSome = false;
-//    for(var variable in bindingsa) {
+//    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
 // 	if(bindingsb[variable]!=null && (bindingsb[variable] != bindingsa[variable])) {
 // 	    return false;
 // 	} else if(bindingsb[variable] == bindingsa[variable]){
@@ -467,11 +467,11 @@ QueryPlanDPSize.areCompatibleBindings = function(bindingsa, bindingsb) {
 
 QueryPlanDPSize.mergeBindings = function(bindingsa, bindingsb) {
     var merged = {};
-    for(var variable in bindingsa) {
+    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         merged[variable] = bindingsa[variable];
     }
 
-    for(var variable in bindingsb) {
+    var variable_keys = Object.keys( bindingsb ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         merged[variable] = bindingsb[variable];
     }
 
@@ -539,11 +539,14 @@ QueryPlanDPSize.joinBindings = function(bindingsa, bindingsb) {
 };
 
 QueryPlanDPSize.augmentMissingBindings = function(bindinga, bindingb) {
-    for(var pb in bindingb) {
-        if(bindinga[pb] == null) {
-            bindinga[pb] = null;
-        }
-    }
+	if ( bindingb )
+	{
+	    var pb_keys = Object.keys( bindingb ); for( var pb_i = 0; pb_i < pb_keys.length; pb_i++ ) { var pb = pb_keys[pb_i];
+	        if(bindinga[pb] == null) {
+	            bindinga[pb] = null;
+	        }
+	    }
+	}
     return bindinga;
 };
 

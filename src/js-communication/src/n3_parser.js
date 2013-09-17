@@ -391,7 +391,7 @@ var TabulatorN3Parser = function() {
 
     N3Parser.Formula.prototype.literal = function(val, lang, dt) {
 	if(dt != null && dt.value != null && dt.value.indexOf("http://") === -1) {
-	    for(var ns in this.namespaces) {
+	    var ns_keys = Object.keys( this.namespaces ); for( var ns_i = 0; ns_i < ns_keys.length; ns_i++ ) { var ns = ns_keys[ns_i];
 		if(dt.value.indexOf(ns) === 0) {
 		    dt.value = this.namespaces[ns]+(dt.value.split(ns+":")[1]);
 		    break;

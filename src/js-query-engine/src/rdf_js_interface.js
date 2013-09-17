@@ -39,7 +39,7 @@ RDFJSInterface.UrisMap = function() {
 
 RDFJSInterface.UrisMap.prototype.values = function() {
     var collected = {};
-    for(var p in this) {
+    var p_keys = Object.keys( this ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         if(!Utils.include(this.interfaceProperties,p) && 
            typeof(this[p])!=='function' &&
            p!=='defaultNs' &&
@@ -82,7 +82,7 @@ RDFJSInterface.UrisMap.prototype.setDefault = function(iri) {
 };
 
 RDFJSInterface.UrisMap.prototype.addAll = function(prefixMap, override) {
-    for(var prefix in prefixMap) {
+    var prefix_keys = Object.keys( prefixMap ); for( var prefix_i = 0; prefix_i < prefix_keys.length; prefix_i++ ) { var prefix = prefix_keys[prefix_i];
         if(!Utils.include(this.interfaceProperties, prefix)) {
             if(this[prefix] != null) {
                 if(override === true) {
@@ -115,7 +115,7 @@ RDFJSInterface.UrisMap.prototype.resolve = function(curie) {
 };
 
 RDFJSInterface.UrisMap.prototype.shrink = function(iri) {
-    for(var ns in this) {
+    var ns_keys = Object.keys( this ); for( var ns_i = 0; ns_i < ns_keys.length; ns_i++ ) { var ns = ns_keys[ns_i];
         var prefix = this[ns];
         if(iri.indexOf(prefix) === 0) {
             if(prefix !== '' && ns != 'defaultNs') {
@@ -220,7 +220,7 @@ RDFJSInterface.RDFEnvironment = function () {
         }
     };
 
-    for (var p in RDFJSInterface.defaultContext) {
+    var p_keys = Object.keys( RDFJSInterface.defaultContext ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         this.prefixes.set(p, RDFJSInterface.defaultContext[p]);
     }
 };
@@ -292,7 +292,7 @@ RDFJSInterface.RDFEnvironment.prototype.createTermMap = function(empty) {
       var cloned = this.terms.values();
       var termMap = new RDFJSInterface.UrisMap();
    
-      for(var p in cloned) {
+      var p_keys = Object.keys( cloned ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
           termMap[p] = cloned[p];
       }
    
@@ -307,7 +307,7 @@ RDFJSInterface.RDFEnvironment.prototype.createPrefixMap = function(empty) {
       var cloned = this.prefixes.values();
       var prefixMap = new RDFJSInterface.UrisMap();
    
-      for(var p in cloned) {
+      var p_keys = Object.keys( cloned ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
           prefixMap[p] = cloned[p];
       }
    
@@ -327,7 +327,7 @@ RDFJSInterface.RDFNode.prototype.equals = function(otherNode) {
         return this.valueOf() == otherNode;
 
     } else {
-        for(var i in this.attributes) {
+        var i_keys = Object.keys( this.attributes ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             var attribute = this.attributes[i];
             if(this[attribute] != otherNode[attribute]) {
                 return false;

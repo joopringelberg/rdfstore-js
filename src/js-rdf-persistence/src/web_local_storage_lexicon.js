@@ -123,7 +123,7 @@ WebLocalStorageLexicon.Lexicon.prototype.registerGraph = function(oid){
 WebLocalStorageLexicon.Lexicon.prototype.registeredGraphs = function(shouldReturnUris) {
     var acum = [];
 
-    for(var g in this.knownGraphs) {
+    var g_keys = Object.keys( this.knownGraphs ); for( var g_i = 0; g_i < g_keys.length; g_i++ ) { var g = g_keys[g_i];
         if(shouldReturnUris === true) {
             acum.push(this.retrieve(g));
         } else {

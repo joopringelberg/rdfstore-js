@@ -634,18 +634,18 @@ if(QueryEngine.mongodb == null) {
                                test.ok(success === true );
                                test.ok(result.length === 0);
                                var acum = 0;
-                               for(var p in engine.lexicon.uriToOID) {
+                               var p_keys = Object.keys( engine.lexicon.uriToOID ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                    acum++;
                                }
-                               for(var p in engine.lexicon.OIDToUri) {
-                                   acum++;
-                               }
-    
-                               for(var p in engine.lexicon.literalToOID) {
+                               var p_keys = Object.keys( engine.lexicon.OIDToUri ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                    acum++;
                                }
     
-                               for(var p in engine.lexicon.OIDToLiteral) {
+                               var p_keys = Object.keys( engine.lexicon.literalToOID ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
+                                   acum++;
+                               }
+    
+                               var p_keys = Object.keys( engine.lexicon.OIDToLiteral ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                    acum++;
                                }
                                test.ok(acum===0);
@@ -702,18 +702,18 @@ if(QueryEngine.mongodb == null) {
     
     
                                            var acum = 0;
-                                           for(var p in engine.lexicon.uriToOID) {
+                                           var p_keys = Object.keys( engine.lexicon.uriToOID ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                                acum++;
                                            }
-                                           for(var p in engine.lexicon.OIDToUri) {
-                                               acum++;
-                                           }
-                                            
-                                           for(var p in engine.lexicon.literalToOID) {
+                                           var p_keys = Object.keys( engine.lexicon.OIDToUri ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                                acum++;
                                            }
                                             
-                                           for(var p in engine.lexicon.OIDToLiteral) {
+                                           var p_keys = Object.keys( engine.lexicon.literalToOID ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
+                                               acum++;
+                                           }
+                                            
+                                           var p_keys = Object.keys( engine.lexicon.OIDToLiteral ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                                acum++;
                                            }
     

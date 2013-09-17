@@ -14,7 +14,7 @@ QueryPlan.variablesInBGP = function(bgp) {
 
     var components =  bgp.value || bgp;
     var variables  = [];
-    for(var comp in components) {
+    var comp_keys = Object.keys( components ); for( var comp_i = 0; comp_i < comp_keys.length; comp_i++ ) { var comp = comp_keys[comp_i];
         if(components[comp] && components[comp].token === "var") {
             variables.push(components[comp].value);
         } else if(components[comp] && components[comp].token === "blank") {
@@ -246,7 +246,7 @@ QueryPlan.buildBindingsFromRange = function(results, bgp) {
           var binding = {};
           var result  = results[i];
 	  var duplicated = false;
-          for(var comp in bindings) {
+          var comp_keys = Object.keys( bindings ); for( var comp_i = 0; comp_i < comp_keys.length; comp_i++ ) { var comp = comp_keys[comp_i];
               var value = result[comp];
 	      if(binding[bindings[comp]] == null || bindings[bindings[comp]] === value) {
 		  binding[bindings[comp]] = value;
@@ -269,11 +269,11 @@ QueryPlan.variablesIntersectionBindings = function(bindingsa, bindingsb) {
     var varsa = [];
     var varsb = [];
 
-    for(var variable in bindingsa) {
+    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         varsa.push(variable);
     }
 
-    for(var variable in bindingsb) {
+    var variable_keys = Object.keys( bindingsb ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         varsb.push(variable);
     }
     varsa.sort();
@@ -299,7 +299,7 @@ QueryPlan.variablesIntersectionBindings = function(bindingsa, bindingsb) {
 
 QueryPlan.areCompatibleBindings = function(bindingsa, bindingsb) {
     var foundSome = false;
-    for(var variable in bindingsa) {
+    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         if(bindingsb[variable]!=null && (bindingsb[variable] != bindingsa[variable])) {
             return false;
         } else if(bindingsb[variable] == bindingsa[variable]){
@@ -311,7 +311,7 @@ QueryPlan.areCompatibleBindings = function(bindingsa, bindingsb) {
 };
 
 QueryPlan.areCompatibleBindingsLeftOuterJoin = function(bindingsa, bindingsb) {
-    for(var variable in bindingsa) {
+    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         if(bindingsb[variable]!=null && (bindingsb[variable] != bindingsa[variable])) {
             return false;
         }
@@ -322,11 +322,11 @@ QueryPlan.areCompatibleBindingsLeftOuterJoin = function(bindingsa, bindingsb) {
 
 QueryPlan.mergeBindings = function(bindingsa, bindingsb) {
     var merged = {};
-    for(var variable in bindingsa) {
+    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         merged[variable] = bindingsa[variable];
     }
 
-    for(var variable in bindingsb) {
+    var variable_keys = Object.keys( bindingsb ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         merged[variable] = bindingsb[variable];
     }
 
@@ -351,7 +351,7 @@ QueryPlan.joinBindings = function(bindingsa, bindingsb) {
 };
 
 QueryPlan.augmentMissingBindings = function(bindinga, bindingb) {
-    for(var pb in bindingb) {
+    var pb_keys = Object.keys( bindingb ); for( var pb_i = 0; pb_i < pb_keys.length; pb_i++ ) { var pb = pb_keys[pb_i];
         if(bindinga[pb] == null) {
             bindinga[pb] = null;
         }

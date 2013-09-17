@@ -95,7 +95,7 @@ Callbacks.CallbacksBackend.prototype.sendNotification = function(event, quadsPai
     var notificationsMap = {};
     for(var i=0; i<quadsPairs.length; i++) {
         var quadPair = quadsPairs[i];
-        for(var indexKey in this.indexMap) {
+        var indexKey_keys = Object.keys( this.indexMap ); for( var indexKey_i = 0; indexKey_i < indexKey_keys.length; indexKey_i++ ) { var indexKey = indexKey_keys[indexKey_i];
             var index = this.indexMap[indexKey];
             var order = this.componentOrders[indexKey];
             this._searchCallbacksInIndex(index, order, event, quadPair, notificationsMap);
@@ -121,7 +121,7 @@ Callbacks.CallbacksBackend.prototype.sendEmptyNotification = function(event, val
 };
 
 Callbacks.CallbacksBackend.prototype.dispatchNotifications = function(notificationsMap) {
-    for(var callbackId in notificationsMap) {
+    var callbackId_keys = Object.keys( notificationsMap ); for( var callbackId_i = 0; callbackId_i < callbackId_keys.length; callbackId_i++ ) { var callbackId = callbackId_keys[callbackId_i];
         var callback = this.callbacksMap[callbackId];
         var deleted = notificationsMap[callbackId][Callbacks['deleted']];
         if(deleted!=null) {

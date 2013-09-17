@@ -132,7 +132,7 @@ Utils.partition = function(c, n) {
 
 Utils.keys = function(obj) {
     var variables = [];
-    for(var variable in obj) {
+    var variable_keys = Object.keys( obj ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         variables.push(variable);
     }
 

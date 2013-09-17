@@ -65,7 +65,7 @@ RDFLoader.RDFLoader.prototype.load = function(uri, graph, callback) {
             var data = results['data'];
             if(mime != null) {
                 mime = mime.split(";")[0];
-                for(var m in that.parsers) {
+                var m_keys = Object.keys( that.parsers ); for( var m_i = 0; m_i < m_keys.length; m_i++ ) { var m = m_keys[m_i];
                     if(m.indexOf("/")!=-1) {
                         var mimeParts = m.split("/");
                         if(mimeParts[1] === '*') {

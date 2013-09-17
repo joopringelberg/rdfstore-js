@@ -1374,7 +1374,7 @@ QueryFilters.runUnaryExpression = function(unaryexpression, expression, bindings
     } else if(unaryexpression === '-') {
         if(QueryFilters.isNumeric(op)) {
             var clone = {};
-            for(var p in op) {
+            var p_keys = Object.keys( op ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                 clone[p] = op[p];
             }
             clone.value = -clone.value;

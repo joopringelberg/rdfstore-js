@@ -120,7 +120,7 @@ Server.parseOptions = function() {
         }
     }
     
-    for(var p in Server.defaultOptions) {
+    var p_keys = Object.keys( Server.defaultOptions ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         if(options[p] == null) {
             options[p] = Server.defaultOptions[p].def;
         }
@@ -140,7 +140,7 @@ Server.printUsage = function() {
     console.log("   * load URI|stdin [dstGraphURI]: load the graph pointed by the URI argument into the store. The graph will be loaded in the 'dstGraphURI' graph or the default graph if none specified");
     console.log("   * clear: removes all data from the store");
     console.log("\nOptions:");
-    for(var p in Server.optionSwitches) {
+    var p_keys = Object.keys( Server.optionSwitches ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         var option = Server.defaultOptions[Server.optionSwitches[p]];
         console.log("   "+p+": "+option.desc+" ["+option.def+"]");
     }
@@ -457,7 +457,7 @@ Server.graphToJSONLD = function(graph, rdf) {
     });
 
     var results = [];
-    for(var p in nodes) {
+    var p_keys = Object.keys( nodes ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         results.push(nodes[p]);
     }
 
@@ -494,7 +494,7 @@ Server.routeRequest = function(options) {
 
                 var handler = null;
 
-                for(var path in routes) {
+                var path_keys = Object.keys( routes ); for( var path_i = 0; path_i < path_keys.length; path_i++ ) { var path = path_keys[path_i];
                     var handlerString = routes[path];
                     var requestPath = url.parse(req.url,true,true)['pathname'];
                     req.requestPath = requestPath;
@@ -635,7 +635,7 @@ Server.buildResponseBindings = function(mediaTypes, bindings, res) {
             }
         }
         var head = {'variables':[]};
-        for(var p in varNames) {
+        var p_keys = Object.keys( varNames ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
             head['variables'].push({'name':p});
         }
 
@@ -655,7 +655,7 @@ Server.buildResponseBindings = function(mediaTypes, bindings, res) {
 
             var result = bindings[i];
             
-            for(var p in result) {
+            var p_keys = Object.keys( result ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                 varNames[p] = true;
                 nextResult = nextResult+'<binding name="'+Server.xmlEncode(p)+'">';
                 if(result[p].token === 'uri') {
@@ -681,7 +681,7 @@ Server.buildResponseBindings = function(mediaTypes, bindings, res) {
         results = results + '</results>';
 
         var head = '<head>';
-        for(var varName in varNames) {
+        var varName_keys = Object.keys( varNames ); for( var varName_i = 0; varName_i < varName_keys.length; varName_i++ ) { var varName = varName_keys[varName_i];
             head = head + '<variable name="'+Server.xmlEncode(varName)+'"/>';
         }
         head = head + '</head>';
@@ -832,7 +832,7 @@ Server.buildResponseGraph = function(mediaTypes, graph, res) {
 
         var xml = '<?xml version="1.0"  encoding="UTF-8"?>';
         xml = xml + '<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"';
-        for(var prefix in ns) {
+        var prefix_keys = Object.keys( ns ); for( var prefix_i = 0; prefix_i < prefix_keys.length; prefix_i++ ) { var prefix = prefix_keys[prefix_i];
             var prefixNs = ns[prefix];
             xml = xml + ' xmlns:'+prefixNs+'="'+prefix+'"';
         }

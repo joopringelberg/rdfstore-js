@@ -508,7 +508,7 @@ exports.testLoad3 = function(test) {
                     blankIds[blankId] = true;
                 }
                 var counter = 0;
-                for(var p in blankIds) {
+                var p_keys = Object.keys( blankIds ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                     counter++;
                 }
 
@@ -787,7 +787,7 @@ exports.testConstructBlankNodes = function(test) {
                 }
 
                 var numDistinctBlankSujects = 0;
-                for(var p in distinctBlankSubjects) {
+                var p_keys = Object.keys( distinctBlankSubjects ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                     numDistinctBlankSujects++;
                 }
 

@@ -29,10 +29,10 @@ exports.simpleCallback = function(test){
                                            var normalized = engine.normalizeQuad(quad, queryEnv, true);
                                            callbacksBackend.sendNotification('added', [[quad, normalized]], function(){
                                                var counter = 0;
-                                               for(var p in callbacksBackend.callbacksMap) {
+                                               var p_keys = Object.keys( callbacksBackend.callbacksMap ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                                    counter++;
                                                }
-                                               for(var p in callbacksBackend.callbacksInverseMap) {
+                                               var p_keys = Object.keys( callbacksBackend.callbacksInverseMap ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                                    counter++
                                                }
                                                test.ok(counter === 0);
@@ -86,10 +86,10 @@ exports.simpleCallback2 = function(test){
                                            var normalized = engine.normalizeQuad(quad, queryEnv, true);
                                            callbacksBackend.sendNotification('added', [[quad, normalized]], function(){
                                                var counter = 0;
-                                               for(var p in callbacksBackend.callbacksMap) {
+                                               var p_keys = Object.keys( callbacksBackend.callbacksMap ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                                    counter++;
                                                }
-                                               for(var p in callbacksBackend.callbacksInverseMap) {
+                                               var p_keys = Object.keys( callbacksBackend.callbacksInverseMap ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                                                    counter++
                                                }
                                                test.ok(counter === 0);

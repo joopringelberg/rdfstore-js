@@ -48,7 +48,7 @@ WebLocalStorageBTree.Tree = function(order, name, persistent, cacheMaxSize) {
                         },
                         get: function(i) {
                             var j=0;
-                            for(var k in content) {
+                            var k_keys = Object.keys( content ); for( var k_i = 0; k_i < k_keys.length; k_i++ ) { var k = k_keys[k_i];
                                 if(i===j) {
                                     return k;
                                 }

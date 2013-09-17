@@ -481,7 +481,7 @@ def process_files_for_browser
   File.open("./dist/browser/rdf_store.js", "w") do |of|
     
     if BUILD_CONFIGURATION[:browser][:load_jquery]
-      File.open("./src/js-communication/src/jquery_ajax.js", "r") do |f|
+      File.open("./src/js-communication/src/jquery.js", "r") do |f|
         f.each_line do |line|
           of << line
         end

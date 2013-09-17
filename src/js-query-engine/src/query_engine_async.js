@@ -244,7 +244,7 @@ QueryEngine.QueryEngine.prototype.removeDefaultGraphBindings = function(bindings
     for(i=0; i<bindingsList.length; i++) {
         var bindings = bindingsList[i];
         var foundDefaultGraph = false;
-        for(var p in bindings) {
+        var p_keys = Object.keys( bindings ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
             for(var j=0; j<namedDatasetsMap.length; j++) {
                 if(bindings[p] === namedDatasetsMap[j]) {
                     foundDefaultGraph = true;
@@ -835,7 +835,7 @@ QueryEngine.QueryEngine.prototype.groupSolution = function(bindings, group, quer
         // The final result is an array of arrays with all the groups
         var groups = [];
             
-        for(var k in dups) {
+        var k_keys = Object.keys( dups ); for( var k_i = 0; k_i < k_keys.length; k_i++ ) { var k = k_keys[k_i];
             groups.push(dups[k]);
         }
 

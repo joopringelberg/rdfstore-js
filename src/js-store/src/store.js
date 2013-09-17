@@ -776,7 +776,7 @@ Store.Store.prototype.registerDefaultNamespace = function(ns, prefix) {
  */
 Store.Store.prototype.registerDefaultProfileNamespaces = function() {
     var defaultNsMap = this.rdf.prefixes.values();
-    for (var p in defaultNsMap) {
+    var p_keys = Object.keys( defaultNsMap ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         this.registerDefaultNamespace(p,defaultNsMap[p]);
     }
 };
