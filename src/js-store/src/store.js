@@ -527,7 +527,7 @@ Store.Store.prototype.subscribe = function(s, p, o, g, callback) {
     var that = this;
     var adapterCb = function(event,triples){
         var acum = [];
-        var queryEnv = {blanks:{}, outCache:{}};
+        var queryEnv = {blanks:{}, outCache:{}, namespaces: that.rdf.prefixes }; // Joop Ringelberg
         var bindings = [];
 
         for(var i=0; i<triples.length; i++) {
