@@ -143,7 +143,7 @@ Utils.partition = function(c, n) {
 
 Utils.keys = function(obj) {
     var variables = [];
-    for(var variable in obj) {
+    var variable_keys = Object.keys( obj ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         variables.push(variable);
     }
 
@@ -1687,7 +1687,7 @@ Lexicon.Lexicon.prototype.registerGraph = function(oid){
 Lexicon.Lexicon.prototype.registeredGraphs = function(shouldReturnUris) {
     var acum = [];
 
-    for(var g in this.knownGraphs) {
+    var g_keys = Object.keys( this.knownGraphs ); for( var g_i = 0; g_i < g_keys.length; g_i++ ) { var g = g_keys[g_i];
         if(shouldReturnUris === true) {
             acum.push(this.OIDToUri['u'+g]);
         } else {
@@ -2009,8 +2009,7 @@ var jsonldParser = null;
 var _setMembers = function(self, obj)
 {
    self.stack = '';
-   for(var key in obj)
-   {
+   var key_keys = Object.keys( obj ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
       self[key] = obj[key];
    }
 };
@@ -2034,8 +2033,7 @@ if(typeof(window) !== 'undefined')
             throw new TypeError('Object.keys called on non-object');
          }
          var rval = [];
-         for(var p in o)
-         {
+         var p_keys = Object.keys( o ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
             if(Object.prototype.hasOwnProperty.call(o, p))
             {
                rval.push(p);
@@ -2168,8 +2166,7 @@ var _clone = function(value)
    {
       rval = {};
       var keys = Object.keys(value).sort();
-      for(var i in keys)
-      {
+      var i_keys = Object.keys( keys ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          var key = keys[i];
          rval[key] = _clone(value[key]);
       }
@@ -2177,8 +2174,7 @@ var _clone = function(value)
    else if(value.constructor === Array)
    {
       rval = [];
-      for(var i in value)
-      {
+      var i_keys = Object.keys( value ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          rval[i] = _clone(value[i]);
       }
    }
@@ -2214,8 +2210,7 @@ var _getKeywords = function(ctx)
    {
       // gather keyword aliases from context
       var keywords = {};
-      for(var key in ctx)
-      {
+      var key_keys = Object.keys( ctx ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          if(ctx[key].constructor === String && ctx[key] in rval)
          {
             keywords[ctx[key]] = key;
@@ -2223,8 +2218,7 @@ var _getKeywords = function(ctx)
       }
       
       // overwrite keywords
-      for(var key in keywords)
-      {
+      var key_keys = Object.keys( keywords ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          rval[key] = keywords[key];
       }
    }
@@ -2274,8 +2268,7 @@ var _compactIri = function(ctx, iri, usedCtx)
    
    // check the context for a term that could shorten the IRI
    // (give preference to terms over prefixes)
-   for(var key in ctx)
-   {
+   var key_keys = Object.keys( ctx ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
       // skip special context keys (start with '@')
       if(key.length > 0 && key[0] !== '@')
       {
@@ -2301,8 +2294,7 @@ var _compactIri = function(ctx, iri, usedCtx)
    // term not found, check the context for a prefix
    if(rval === null)
    {
-      for(var key in ctx)
-      {
+      var key_keys = Object.keys( ctx ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          // skip special context keys (start with '@')
          if(key.length > 0 && key[0] !== '@')
          {
@@ -2385,8 +2377,7 @@ var _expandTerm = function(ctx, term, usedCtx)
    // 3. The property is a keyword.
    else
    {
-      for(var key in keywords)
-      {
+      var key_keys = Object.keys( keywords ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          if(term === keywords[key])
          {
             rval = key;
@@ -2410,8 +2401,7 @@ var _sortContextKeys = function(ctx)
    // sort keys
    var rval = {};
    var keys = Object.keys(ctx).sort();
-   for(var k in keys)
-   {
+   var k_keys = Object.keys( keys ); for( var k_i = 0; k_i < k_keys.length; k_i++ ) { var k = k_keys[k_i];
       var key = keys[k];
       rval[key] = ctx[key];
    }
@@ -2528,8 +2518,7 @@ jsonld.compact = function(ctx, input)
          ctx = jsonld.mergeContexts({}, ctx);
       }
       
-      for(var i in tmp)
-      {
+      var i_keys = Object.keys( tmp ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          // setup output context
          var ctxOut = {};
          
@@ -2552,8 +2541,7 @@ jsonld.compact = function(ctx, input)
             
             // order keys in output
             var ordered = {};
-            for(var k in keys)
-            {
+            var k_keys = Object.keys( keys ); for( var k_i = 0; k_i < k_keys.length; k_i++ ) { var k = k_keys[k_i];
                var key = keys[k];
                ordered[key] = out[key];
             }
@@ -2596,8 +2584,7 @@ jsonld.mergeContexts = function(ctx1, ctx2)
    if(ctx2.constructor === Array)
    {
       // merge array of contexts in order
-      for(var i in ctx2)
-      {
+      var i_keys = Object.keys( ctx2 ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          merged = jsonld.mergeContexts(merged, ctx2[i]);
       }
    }
@@ -2605,13 +2592,11 @@ jsonld.mergeContexts = function(ctx1, ctx2)
    {
       // if the new context contains any IRIs that are in the merged context,
       // remove them from the merged context, they will be overwritten
-      for(var key in ctx2)
-      {
+      var key_keys = Object.keys( ctx2 ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          // ignore special keys starting with '@'
          if(key.indexOf('@') !== 0)
          {
-            for(var mkey in merged)
-            {
+            var mkey_keys = Object.keys( merged ); for( var mkey_i = 0; mkey_i < mkey_keys.length; mkey_i++ ) { var mkey = mkey_keys[mkey_i];
                if(merged[mkey] === ctx2[key])
                {
                   // FIXME: update related coerce rules
@@ -2623,8 +2608,7 @@ jsonld.mergeContexts = function(ctx1, ctx2)
       }
    
       // merge contexts
-      for(var key in ctx2)
-      {
+      var key_keys = Object.keys( ctx2 ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          merged[key] = _clone(ctx2[key]);
       }
    }
@@ -2711,8 +2695,7 @@ jsonld.toTriples = function(input, graph, callback)
    
    // generate triples
    var quit = false;
-   for(var i1 in normalized)
-   {
+   var i1_keys = Object.keys( normalized ); for( var i1_i = 0; i1_i < i1_keys.length; i1_i++ ) { var i1 = i1_keys[i1_i];
       var e = normalized[i1];
       var s = e['@id'];
        if(s[0] == "_") {
@@ -2721,8 +2704,7 @@ jsonld.toTriples = function(input, graph, callback)
            s = {'token':'uri', 'value':s};
        }
 
-      for(var p in e)
-      {
+      var p_keys = Object.keys( e ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
          if(p !== '@id')
          {
 	     var obj = e[p];
@@ -2730,8 +2712,7 @@ jsonld.toTriples = function(input, graph, callback)
              {
 		 obj = [obj];
              }
-            for(var i2 in obj)
-            {
+            var i2_keys = Object.keys( obj ); for( var i2_i = 0; i2_i < i2_keys.length; i2_i++ ) { var i2 = i2_keys[i2_i];
                 var obji2 = obj[i2];
 		if(p === '@type' || p === 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type') {
 		    p = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type';
@@ -2792,23 +2773,20 @@ jsonld.resolve = function(input, resolver, callback)
    {
       if(input.constructor === Array)
       {
-         for(var i in input)
-         {
+         var i_keys = Object.keys( input ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             findUrls(input[i]);
          }
       }
       else if(input.constructor === Object)
       {
-         for(var key in input)
-         {
+         var key_keys = Object.keys( input ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
             if(key === '@context')
             {
                // @context is an array that might contain URLs
                if(input[key].constructor === Array)
                {
                   var list = input[key];
-                  for(var i in list)
-                  {
+                  var i_keys = Object.keys( list ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
                      if(list[i].constructor === String)
                      {
                         // replace w/resolved @context if appropriate
@@ -2854,8 +2832,7 @@ jsonld.resolve = function(input, resolver, callback)
    else
    {
       // resolve all URLs
-      for(var url in urls)
-      {
+      var url_keys = Object.keys( urls ); for( var url_i = 0; url_i < url_keys.length; url_i++ ) { var url = url_keys[url_i];
          resolver(url, function(result, error)
          {
             --count;
@@ -2935,8 +2912,7 @@ Processor.prototype.compact = function(ctx, property, value, usedCtx)
    {
       // recursively add compacted values to array
       rval = [];
-      for(var i in value)
-      {
+      var i_keys = Object.keys( value ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          rval.push(this.compact(ctx, property, value[i], usedCtx));
       }
    }
@@ -2954,8 +2930,7 @@ Processor.prototype.compact = function(ctx, property, value, usedCtx)
    {
       // recursively handle sub-properties that aren't a sub-context
       rval = {};
-      for(var key in value)
-      {
+      var key_keys = Object.keys( value ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          if(value[key] !== '@context')
          {
             // set object to compacted property, only overwrite existing
@@ -3073,8 +3048,7 @@ Processor.prototype.compact = function(ctx, property, value, usedCtx)
       else if(value.constructor === Object)
       {
          rval = {};
-         for(var key in value)
-         {
+         var key_keys = Object.keys( value ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
             rval[keywords[key]] = value[key];
          }
       }
@@ -3132,8 +3106,7 @@ Processor.prototype.expand = function(ctx, property, value)
    {
       // recursively add expanded values to array
       rval = [];
-      for(var i in value)
-      {
+      var i_keys = Object.keys( value ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          rval.push(this.expand(ctx, property, value[i]));
       }
    }
@@ -3147,8 +3120,7 @@ Processor.prototype.expand = function(ctx, property, value)
       
       // recursively handle sub-properties that aren't a sub-context
       rval = {};
-      for(var key in value)
-      {
+      var key_keys = Object.keys( value ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          // preserve frame keywords
          if(key === '@embed' || key === '@explicit' ||
             key === '@default' || key === '@omitDefault')
@@ -3261,13 +3233,11 @@ Processor.prototype.normalize = function(input)
       _flatten(null, null, expanded, subjects);
 
       // append subjects with sorted properties to array
-      for(var key in subjects)
-      {
+      var key_keys = Object.keys( subjects ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          var s = subjects[key];
          var sorted = {};
          var keys = Object.keys(s).sort();
-         for(var i in keys)
-         {
+         var i_keys = Object.keys( keys ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             var k = keys[i];
             sorted[k] = s[k];
          }
@@ -3482,8 +3452,7 @@ var _compareBlankNodeObjects = function(a, b)
    3.2.9. The bnode with the alphabetically-first @id is first.
    */
    
-   for(var p in a)
-   {
+   var p_keys = Object.keys( a ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
       // skip IDs (IRIs)
       if(p !== '@id')
       {
@@ -3576,8 +3545,7 @@ var _collectSubjects = function(input, subjects, bnodes)
    }
    else if(input.constructor === Array)
    {
-      for(var i in input)
-      {
+      var i_keys = Object.keys( input ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          _collectSubjects(input[i], subjects, bnodes);
       }
    }
@@ -3603,8 +3571,7 @@ var _collectSubjects = function(input, subjects, bnodes)
       }
       
       // recurse through subject properties
-      for(var key in input)
-      {
+      var key_keys = Object.keys( input ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          _collectSubjects(input[key], subjects, bnodes);
       }
    }
@@ -3631,8 +3598,7 @@ var _flatten = function(parent, parentProperty, value, subjects)
    else if(value.constructor === Array)
    {
       // list of objects or a disjoint graph
-      for(var i in value)
-      {
+      var i_keys = Object.keys( value ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          _flatten(parent, parentProperty, value[i], subjects);
       }
    }
@@ -3679,8 +3645,7 @@ var _flatten = function(parent, parentProperty, value, subjects)
          flattened = {'@id': subject['@id']};
 
          // flatten embeds
-         for(var key in value)
-         {
+         var key_keys = Object.keys( value ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
             var v = value[key];
             
             // drop null values, skip @id (it is already set above)
@@ -3758,8 +3723,7 @@ Processor.prototype.nameBlankNodes = function(input)
    _collectSubjects(input, subjects, bnodes);
    
    // uniquely name all unnamed bnodes
-   for(var i in bnodes)
-   {
+   var i_keys = Object.keys( bnodes ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
       var bnode = bnodes[i];
       if(!('@id' in bnode))
       {
@@ -3798,8 +3762,7 @@ Processor.prototype.renameBlankNode = function(b, id)
    
    // update references to this bnode
    var refs = this.edges.refs[id].all;
-   for(var i in refs)
-   {
+   var i_keys = Object.keys( refs ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
       var iri = refs[i].s;
       if(iri === old)
       {
@@ -3807,8 +3770,7 @@ Processor.prototype.renameBlankNode = function(b, id)
       }
       var ref = subjects[iri];
       var props = this.edges.props[iri].all;
-      for(var i2 in props)
-      {
+      var i2_keys = Object.keys( props ); for( var i2_i = 0; i2_i < i2_keys.length; i2_i++ ) { var i2 = i2_keys[i2_i];
          if(props[i2].s === old)
          {
             props[i2].s = id;
@@ -3817,8 +3779,7 @@ Processor.prototype.renameBlankNode = function(b, id)
             var p = props[i2].p;
             var tmp = (ref[p].constructor === Object) ? [ref[p]] :
                (ref[p].constructor === Array) ? ref[p] : [];
-            for(var n in tmp)
-            {
+            var n_keys = Object.keys( tmp ); for( var n_i = 0; n_i < n_keys.length; n_i++ ) { var n = n_keys[n_i];
                if(tmp[n].constructor === Object &&
                   '@id' in tmp[n] && tmp[n]['@id'] === old)
                {
@@ -3831,12 +3792,10 @@ Processor.prototype.renameBlankNode = function(b, id)
    
    // update references from this bnode 
    var props = this.edges.props[id].all;
-   for(var i in props)
-   {
+   var i_keys = Object.keys( props ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
       var iri = props[i].s;
       refs = this.edges.refs[iri].all;
-      for(var r in refs)
-      {
+      var r_keys = Object.keys( refs ); for( var r_i = 0; r_i < r_keys.length; r_i++ ) { var r = r_keys[r_i];
          if(refs[r].s === old)
          {
             refs[r].s = id;
@@ -3865,8 +3824,7 @@ Processor.prototype.canonicalizeBlankNodes = function(input)
    };
    var subjects = this.subjects = {};
    var bnodes = [];
-   for(var i in input)
-   {
+   var i_keys = Object.keys( input ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
       var iri = input[i]['@id'];
       subjects[iri] = input[i];
       edges.refs[iri] =
@@ -3894,8 +3852,7 @@ Processor.prototype.canonicalizeBlankNodes = function(input)
    
    // rename all bnodes that happen to be in the c14n namespace
    // and initialize serializations
-   for(var i in bnodes)
-   {
+   var i_keys = Object.keys( bnodes ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
       var bnode = bnodes[i];
       var iri = bnode['@id'];
       if(c14n.inNamespace(iri))
@@ -3930,8 +3887,7 @@ Processor.prototype.canonicalizeBlankNodes = function(input)
       var bnode = bnodes.shift();
       var iri = bnode['@id'];
       var dirs = ['props', 'refs'];
-      for(var d in dirs)
-      {
+      var d_keys = Object.keys( dirs ); for( var d_i = 0; d_i < d_keys.length; d_i++ ) { var d = d_keys[d_i];
          var dir = dirs[d];
          
          // if no serialization has been computed, name only the first node
@@ -3954,8 +3910,7 @@ Processor.prototype.canonicalizeBlankNodes = function(input)
          
          // name bnodes in mapping
          var renamed = [];
-         for(var i in keys)
-         {
+         var i_keys = Object.keys( keys ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             var iriK = keys[i];
             if(!c14n.inNamespace(iri) && iriK in subjects)
             {
@@ -3967,15 +3922,13 @@ Processor.prototype.canonicalizeBlankNodes = function(input)
          // only keep non-canonically named bnodes
          var tmp = bnodes;
          bnodes = [];
-         for(var i in tmp)
-         {
+         var i_keys = Object.keys( tmp ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             var b = tmp[i];
             var iriB = b['@id'];
             if(!c14n.inNamespace(iriB))
             {
                // mark serializations related to the named bnodes as dirty
-               for(var i2 in renamed)
-               {
+               var i2_keys = Object.keys( renamed ); for( var i2_i = 0; i2_i < i2_keys.length; i2_i++ ) { var i2 = i2_keys[i2_i];
                   if(this.markSerializationDirty(iriB, renamed[i2], dir))
                   {
                      // resort if a serialization was marked dirty
@@ -3989,13 +3942,11 @@ Processor.prototype.canonicalizeBlankNodes = function(input)
    }
    
    // sort property lists that now have canonically-named bnodes
-   for(var key in edges.props)
-   {
+   var key_keys = Object.keys( edges.props ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
       if(edges.props[key].bnodes.length > 0)
       {
          var bnode = subjects[key];
-         for(var p in bnode)
-         {
+         var p_keys = Object.keys( bnode ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
             if(p.indexOf('@') !== 0 && bnode[p].constructor === Array)
             {
                bnode[p].sort(_compareObjects);
@@ -4076,8 +4027,7 @@ var _serializeProperties = function(b)
    var rval = '';
    
    var first = true;
-   for(var p in b)
-   {
+   var p_keys = Object.keys( b ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
       if(p !== '@id')
       {
          if(first)
@@ -4094,8 +4044,7 @@ var _serializeProperties = function(b)
          
          // object(s)
          var objs = (b[p].constructor === Array) ? b[p] : [b[p]];
-         for(var oi in objs)
-         {
+         var oi_keys = Object.keys( objs ); for( var oi_i = 0; oi_i < oi_keys.length; oi_i++ ) { var oi = oi_keys[oi_i];
             var o = objs[oi];
             if(o.constructor === Object)
             {
@@ -4186,8 +4135,7 @@ MappingBuilder.prototype.serialize = function(subjects, edges)
                var first = true;
                s += '[';
                var refs = edges.refs[iri].all;
-               for(var r in refs)
-               {
+               var r_keys = Object.keys( refs ); for( var r_i = 0; r_i < r_keys.length; r_i++ ) { var r = r_keys[r_i];
                   if(first)
                   {
                      first = false;
@@ -4323,8 +4271,7 @@ Processor.prototype.serializeCombos = function(
       if(s[dir] === null || _compareSerializations(mb.s, s[dir].s) <= 0)
       {
          // recurse into adjacent values
-         for(var i in keys)
-         {
+         var i_keys = Object.keys( keys ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             var k = keys[i];
             this.serializeBlankNode(s, mapped[k], mb, dir);
          }
@@ -4365,8 +4312,7 @@ Processor.prototype.serializeBlankNode = function(s, iri, mb, dir)
       var adj = this.edges[dir][iri].bnodes;
       var mapped = {};
       var notMapped = [];
-      for(var i in adj)
-      {
+      var i_keys = Object.keys( adj ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          if(adj[i].s in mb.mapping)
          {
             mapped[mb.mapping[adj[i].s]] = adj[i].s;
@@ -4389,8 +4335,7 @@ Processor.prototype.serializeBlankNode = function(s, iri, mb, dir)
       
       var same = false;
       var prev = null;
-      for(var i in notMapped)
-      {
+      var i_keys = Object.keys( notMapped ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          var curr = this.subjects[notMapped[i].s];
          if(prev !== null)
          {
@@ -4428,8 +4373,7 @@ Processor.prototype.serializeBlankNode = function(s, iri, mb, dir)
          {
             return _compare(hm[a.s], hm[b.s]);
          });
-         for(var i in notMapped)
-         {
+         var i_keys = Object.keys( notMapped ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             mapped[mb.mapNode(notMapped[i].s)] = notMapped[i].s;
          }
          notMapped = [];
@@ -4643,18 +4587,15 @@ Processor.prototype.collectEdges = function()
    var props = this.edges.props;
    
    // collect all references and properties
-   for(var iri in this.subjects)
-   {
+   var iri_keys = Object.keys( this.subjects ); for( var iri_i = 0; iri_i < iri_keys.length; iri_i++ ) { var iri = iri_keys[iri_i];
       var subject = this.subjects[iri];
-      for(var key in subject)
-      {
+      var key_keys = Object.keys( subject ); for( var key_i = 0; key_i < key_keys.length; key_i++ ) { var key = key_keys[key_i];
          if(key !== '@id')
          {
             // normalize to array for single codepath
             var object = subject[key];
             var tmp = (object.constructor !== Array) ? [object] : object;
-            for(var i in tmp)
-            {
+            var i_keys = Object.keys( tmp ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
                var o = tmp[i];
                if(o.constructor === Object && '@id' in o &&
                   o['@id'] in this.subjects)
@@ -4674,15 +4615,13 @@ Processor.prototype.collectEdges = function()
    
    // create sorted categories
    var self = this;
-   for(var iri in refs)
-   {
+   var iri_keys = Object.keys( refs ); for( var iri_i = 0; iri_i < iri_keys.length; iri_i++ ) { var iri = iri_keys[iri_i];
       refs[iri].all.sort(function(a, b) { return self.compareEdges(a, b); });
       refs[iri].bnodes = refs[iri].all.filter(function(edge) {
          return _isBlankNodeIri(edge.s);
       });
    }
-   for(var iri in props)
-   {
+   var iri_keys = Object.keys( props ); for( var iri_i = 0; iri_i < iri_keys.length; iri_i++ ) { var iri = iri_keys[iri_i];
       props[iri].all.sort(function(a, b) { return self.compareEdges(a, b); });
       props[iri].bnodes = props[iri].all.filter(function(edge) {
          return _isBlankNodeIri(edge.s);
@@ -4715,8 +4654,7 @@ var _isType = function(input, frame)
       for(var t = 0; t < types.length && !rval; ++t)
       {
          type = types[t];
-         for(var i in tmp)
-         {
+         var i_keys = Object.keys( tmp ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             if(tmp[i] === type)
             {
                rval = true;
@@ -4760,8 +4698,7 @@ var _isDuckType = function(input, frame)
       else if(input.constructor === Object && '@id' in input)
       {
          rval = true;
-         for(var i in props)
-         {
+         var i_keys = Object.keys( props ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             if(!(props[i] in input))
             {
                rval = false;
@@ -4825,8 +4762,7 @@ var _subframe = function(
          {
             // find and replace embed in array
             var objs = embed.parent[embed.key];
-            for(var i in objs)
-            {
+            var i_keys = Object.keys( objs ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
                if(objs[i].constructor === Object && '@id' in objs[i] &&
                   objs[i]['@id'] === iri)
                {
@@ -4844,8 +4780,7 @@ var _subframe = function(
          var removeDependents = function(iri)
          {
             var iris = Object.keys(embeds);
-            for(var i in iris)
-            {
+            var i_keys = Object.keys( iris ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
                i = iris[i];
                if(i in embeds && embeds[i].parent !== null &&
                   embeds[i].parent['@id'] === iri)
@@ -4903,8 +4838,7 @@ var _subframe = function(
             // build input and do recursion
             var v = value[key];
             var input = (v.constructor === Array) ? v : [v];
-            for(var n in input)
-            {
+            var n_keys = Object.keys( input ); for( var n_i = 0; n_i < n_keys.length; n_i++ ) { var n = n_keys[n_i];
                // replace reference to subject w/embedded subject
                if(input[n].constructor === Object &&
                   '@id' in input[n] &&
@@ -5031,8 +4965,7 @@ var _frame = function(
    }
    
    // for each matching value, add it to the output
-   for(var i1 in values)
-   {
+   var i1_keys = Object.keys( values ); for( var i1_i = 0; i1_i < i1_keys.length; i1_i++ ) { var i1 = i1_keys[i1_i];
       for(var i2 in values[i1])
       {
          frame = frames[i1];
@@ -5103,8 +5036,7 @@ Processor.prototype.frame = function(input, frame, options)
       
       // expand all elements in the array
       var tmp = [];
-      for(var i in frame)
-      {
+      var i_keys = Object.keys( frame ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
          tmp.push(jsonld.expand(frame[i]));
       }
       frame = tmp;
@@ -5124,8 +5056,7 @@ Processor.prototype.frame = function(input, frame, options)
    
    // build map of all subjects
    var subjects = {};
-   for(var i in input)
-   {
+   var i_keys = Object.keys( input ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
       subjects[input[i]['@id']] = input[i];
    }
    
@@ -6055,7 +5986,7 @@ RDFLoader.RDFLoader.prototype.load = function(uri, graph, callback) {
             var data = results['data'];
             if(mime != null) {
                 mime = mime.split(";")[0];
-                for(var m in that.parsers) {
+                var m_keys = Object.keys( that.parsers ); for( var m_i = 0; m_i < m_keys.length; m_i++ ) { var m = m_keys[m_i];
                     if(m.indexOf("/")!=-1) {
                         var mimeParts = m.split("/");
                         if(mimeParts[1] === '*') {
@@ -24292,7 +24223,7 @@ RDFJSInterface.UrisMap = function() {
 
 RDFJSInterface.UrisMap.prototype.values = function() {
     var collected = {};
-    for(var p in this) {
+    var p_keys = Object.keys( this ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         if(!Utils.include(this.interfaceProperties,p) && 
            typeof(this[p])!=='function' &&
            p!=='defaultNs' &&
@@ -24335,7 +24266,7 @@ RDFJSInterface.UrisMap.prototype.setDefault = function(iri) {
 };
 
 RDFJSInterface.UrisMap.prototype.addAll = function(prefixMap, override) {
-    for(var prefix in prefixMap) {
+    var prefix_keys = Object.keys( prefixMap ); for( var prefix_i = 0; prefix_i < prefix_keys.length; prefix_i++ ) { var prefix = prefix_keys[prefix_i];
         if(!Utils.include(this.interfaceProperties, prefix)) {
             if(this[prefix] != null) {
                 if(override === true) {
@@ -24368,7 +24299,7 @@ RDFJSInterface.UrisMap.prototype.resolve = function(curie) {
 };
 
 RDFJSInterface.UrisMap.prototype.shrink = function(iri) {
-    for(var ns in this) {
+    var ns_keys = Object.keys( this ); for( var ns_i = 0; ns_i < ns_keys.length; ns_i++ ) { var ns = ns_keys[ns_i];
         var prefix = this[ns];
         if(iri.indexOf(prefix) === 0) {
             if(prefix !== '' && ns != 'defaultNs') {
@@ -24473,7 +24404,7 @@ RDFJSInterface.RDFEnvironment = function () {
         }
     };
 
-    for (var p in RDFJSInterface.defaultContext) {
+    var p_keys = Object.keys( RDFJSInterface.defaultContext ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         this.prefixes.set(p, RDFJSInterface.defaultContext[p]);
     }
 };
@@ -24545,7 +24476,7 @@ RDFJSInterface.RDFEnvironment.prototype.createTermMap = function(empty) {
       var cloned = this.terms.values();
       var termMap = new RDFJSInterface.UrisMap();
    
-      for(var p in cloned) {
+      var p_keys = Object.keys( cloned ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
           termMap[p] = cloned[p];
       }
    
@@ -24560,7 +24491,7 @@ RDFJSInterface.RDFEnvironment.prototype.createPrefixMap = function(empty) {
       var cloned = this.prefixes.values();
       var prefixMap = new RDFJSInterface.UrisMap();
    
-      for(var p in cloned) {
+      var p_keys = Object.keys( cloned ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
           prefixMap[p] = cloned[p];
       }
    
@@ -24580,7 +24511,7 @@ RDFJSInterface.RDFNode.prototype.equals = function(otherNode) {
         return this.valueOf() == otherNode;
 
     } else {
-        for(var i in this.attributes) {
+        var i_keys = Object.keys( this.attributes ); for( var i_i = 0; i_i < i_keys.length; i_i++ ) { var i = i_keys[i_i];
             var attribute = this.attributes[i];
             if(this[attribute] != otherNode[attribute]) {
                 return false;
@@ -26285,7 +26216,7 @@ QueryFilters.runUnaryExpression = function(unaryexpression, expression, bindings
     } else if(unaryexpression === '-') {
         if(QueryFilters.isNumeric(op)) {
             var clone = {};
-            for(var p in op) {
+            var p_keys = Object.keys( op ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
                 clone[p] = op[p];
             }
             clone.value = -clone.value;
@@ -26637,7 +26568,7 @@ QueryPlanDPSize.variablesInBGP = function(bgp) {
 
     var components =  bgp.value || bgp;
     variables  = [];
-    for(var comp in components) {
+    var comp_keys = Object.keys( components ); for( var comp_i = 0; comp_i < comp_keys.length; comp_i++ ) { var comp = comp_keys[comp_i];
         if(components[comp] && components[comp].token === "var") {
             variables.push(components[comp].value);
         } else if(components[comp] && components[comp].token === "blank") {
@@ -26697,7 +26628,7 @@ QueryPlanDPSize.executeAndBGPsGroups = function(bgps) {
 	var newGroupVars = {};
 
         var vars = [];
-        for(var comp in bgp) {
+        var comp_keys = Object.keys( bgp ); for( var comp_i = 0; comp_i < comp_keys.length; comp_i++ ) { var comp = comp_keys[comp_i];
             if(comp != '_cost') {
                 if(bgp[comp].token === 'var') {
                     vars.push(bgp[comp].value);
@@ -26713,7 +26644,7 @@ QueryPlanDPSize.executeAndBGPsGroups = function(bgps) {
 	var toDelete = [];
 	var toJoin = {};
 
-        for(var nextGroupId in groupVars) {
+        var nextGroupId_keys = Object.keys( groupVars ); for( var nextGroupId_i = 0; nextGroupId_i < nextGroupId_keys.length; nextGroupId_i++ ) { var nextGroupId = nextGroupId_keys[nextGroupId_i];
             var groupVar = groupVars[nextGroupId];
 	    foundGroup = false;
             for(var j=0; j<vars.length; j++) {
@@ -26740,7 +26671,7 @@ QueryPlanDPSize.executeAndBGPsGroups = function(bgps) {
 	    var acumGroups = [];
 	    var acumId = "";
 	    var acumVars = "";
-	    for(var gid in toJoin) {
+	    var gid_keys = Object.keys( toJoin ); for( var gid_i = 0; gid_i < gid_keys.length; gid_i++ ) { var gid = gid_keys[gid_i];
 		acumId = acumId+gid;
 		acumGroups = acumGroups.concat(groups[gid]);
 		acumVars = groupVars[gid];
@@ -26758,7 +26689,7 @@ QueryPlanDPSize.executeAndBGPsGroups = function(bgps) {
     }
 
     var acum = [];
-    for(var groupId in groups) {
+    var groupId_keys = Object.keys( groups ); for( var groupId_i = 0; groupId_i < groupId_keys.length; groupId_i++ ) { var groupId = groupId_keys[groupId_i];
         acum.push(groups[groupId]);
     }
 
@@ -26808,7 +26739,7 @@ QueryPlanDPSize.createJoinTree = function(leftPlan, rightPlan) {
         }
     }
     var ids = [];
-    for(var id in distinct) {
+    var id_keys = Object.keys( distinct ); for( var id_i = 0; id_i < id_keys.length; id_i++ ) { var id = id_keys[id_i];
         ids.push(id);
     }
 
@@ -27047,7 +26978,7 @@ QueryPlanDPSize.buildBindingsFromRange = function(results, bgp) {
           var binding = {};
           var result  = results[i];
 	  var duplicated = false;
-          for(var comp in bindings) {
+          var comp_keys = Object.keys( bindings ); for( var comp_i = 0; comp_i < comp_keys.length; comp_i++ ) { var comp = comp_keys[comp_i];
               var value = result[comp];
 	      if(binding[bindings[comp]] == null || binding[bindings[comp]] === value) {
 		  binding[bindings[comp]] = value;
@@ -27067,7 +26998,7 @@ QueryPlanDPSize.buildBindingsFromRange = function(results, bgp) {
 
 // @used
 QueryPlanDPSize.areCompatibleBindings = function(bindingsa, bindingsb) {
-    for(var variable in bindingsa) {
+    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         if(bindingsb[variable]!=null && (bindingsb[variable] != bindingsa[variable])) {
             return false;
         }
@@ -27078,7 +27009,7 @@ QueryPlanDPSize.areCompatibleBindings = function(bindingsa, bindingsb) {
 
 //QueryPlanDPSize.areCompatibleBindingsStrict = function(bindingsa, bindingsb) {
 //    var foundSome = false;
-//    for(var variable in bindingsa) {
+//    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
 // 	if(bindingsb[variable]!=null && (bindingsb[variable] != bindingsa[variable])) {
 // 	    return false;
 // 	} else if(bindingsb[variable] == bindingsa[variable]){
@@ -27093,11 +27024,11 @@ QueryPlanDPSize.areCompatibleBindings = function(bindingsa, bindingsb) {
 
 QueryPlanDPSize.mergeBindings = function(bindingsa, bindingsb) {
     var merged = {};
-    for(var variable in bindingsa) {
+    var variable_keys = Object.keys( bindingsa ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         merged[variable] = bindingsa[variable];
     }
 
-    for(var variable in bindingsb) {
+    var variable_keys = Object.keys( bindingsb ); for( var variable_i = 0; variable_i < variable_keys.length; variable_i++ ) { var variable = variable_keys[variable_i];
         merged[variable] = bindingsb[variable];
     }
 
@@ -27165,11 +27096,14 @@ QueryPlanDPSize.joinBindings = function(bindingsa, bindingsb) {
 };
 
 QueryPlanDPSize.augmentMissingBindings = function(bindinga, bindingb) {
-    for(var pb in bindingb) {
-        if(bindinga[pb] == null) {
-            bindinga[pb] = null;
-        }
-    }
+	if ( bindingb )
+	{
+	    var pb_keys = Object.keys( bindingb ); for( var pb_i = 0; pb_i < pb_keys.length; pb_i++ ) { var pb = pb_keys[pb_i];
+	        if(bindinga[pb] == null) {
+	            bindinga[pb] = null;
+	        }
+	    }
+	}
     return bindinga;
 };
 
@@ -27291,7 +27225,7 @@ QueryEngine.QueryEngine.prototype.registerNsInEnvironment = function(prologue, e
     var toSave = {};
 
     // adding default prefixes;
-    for(var p in this.defaultPrefixes) {
+    var p_keys = Object.keys( this.defaultPrefixes ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         toSave[p] = this.defaultPrefixes[p];
     }
 
@@ -27507,7 +27441,7 @@ QueryEngine.QueryEngine.prototype.removeDefaultGraphBindings = function(bindings
     for(i=0; i<bindingsList.length; i++) {
         var bindings = bindingsList[i];
         var foundDefaultGraph = false;
-        for(var p in bindings) {
+        var p_keys = Object.keys( bindings ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
             for(var j=0; j<namedDatasetsMap.length; j++) {
                 if(bindings[p] === namedDatasetsMap[j]) {
                     foundDefaultGraph = true;
@@ -28140,7 +28074,7 @@ QueryEngine.QueryEngine.prototype.groupSolution = function(bindings, group, data
         // The final result is an array of arrays with all the groups
         var groups = [];
             
-        for(var k in dups) {
+        var k_keys = Object.keys( dups ); for( var k_i = 0; k_i < k_keys.length; k_i++ ) { var k = k_keys[k_i];
             groups.push(dups[k]);
         }
 
@@ -28523,14 +28457,18 @@ QueryEngine.QueryEngine.prototype.executeUpdate = function(syntaxTree, callback)
 
         var aqt = that.abstractQueryTree.parseExecutableUnit(units[i]);
         if(aqt.kind === 'insertdata') {
+        
             for(var j=0; j<aqt.quads.length; j++) {
                 var quad = aqt.quads[j];
                 var result = that._executeQuadInsert(quad, queryEnv);
+                
                 if(result !== true) {
                     return callback(false, error);
                 }
             }
+            
             callback(true);
+            
         } else if(aqt.kind === 'deletedata') {
             for(var j=0; j<aqt.quads.length; j++) {
                 var quad = aqt.quads[j];
@@ -29126,7 +29064,7 @@ Callbacks.CallbacksBackend.prototype.sendNotification = function(event, quadsPai
     var notificationsMap = {};
     for(var i=0; i<quadsPairs.length; i++) {
         var quadPair = quadsPairs[i];
-        for(var indexKey in this.indexMap) {
+        var indexKey_keys = Object.keys( this.indexMap ); for( var indexKey_i = 0; indexKey_i < indexKey_keys.length; indexKey_i++ ) { var indexKey = indexKey_keys[indexKey_i];
             var index = this.indexMap[indexKey];
             var order = this.componentOrders[indexKey];
             this._searchCallbacksInIndex(index, order, event, quadPair, notificationsMap);
@@ -29152,7 +29090,7 @@ Callbacks.CallbacksBackend.prototype.sendEmptyNotification = function(event, val
 };
 
 Callbacks.CallbacksBackend.prototype.dispatchNotifications = function(notificationsMap) {
-    for(var callbackId in notificationsMap) {
+    var callbackId_keys = Object.keys( notificationsMap ); for( var callbackId_i = 0; callbackId_i < callbackId_keys.length; callbackId_i++ ) { var callbackId = callbackId_keys[callbackId_i];
         var callback = this.callbacksMap[callbackId];
         var deleted = notificationsMap[callbackId][Callbacks['deleted']];
         if(deleted!=null) {
@@ -30510,7 +30448,7 @@ Store.Store.prototype.subscribe = function(s, p, o, g, callback) {
     var that = this;
     var adapterCb = function(event,triples){
         var acum = [];
-        var queryEnv = {blanks:{}, outCache:{}};
+        var queryEnv = {blanks:{}, outCache:{}, namespaces: that.rdf.prefixes }; // Joop Ringelberg
         var bindings = [];
 
         for(var i=0; i<triples.length; i++) {
@@ -30759,7 +30697,7 @@ Store.Store.prototype.registerDefaultNamespace = function(ns, prefix) {
  */
 Store.Store.prototype.registerDefaultProfileNamespaces = function() {
     var defaultNsMap = this.rdf.prefixes.values();
-    for (var p in defaultNsMap) {
+    var p_keys = Object.keys( defaultNsMap ); for( var p_i = 0; p_i < p_keys.length; p_i++ ) { var p = p_keys[p_i];
         this.registerDefaultNamespace(p,defaultNsMap[p]);
     }
 };

@@ -1,0 +1,5 @@
+
+Global Find/Replace:
+for\s*\(\s*var\s*(\w+)\s*+in\s*([\w.]+)\s*\)\s*\{
+
+var $1_keys = Object.keys( $2 ); for( var $1_i = 0; $1_i < $1_keys.length; $1_i++ ) { var $1 = $1_keys[$1_i];

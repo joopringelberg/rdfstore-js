@@ -1,0 +1,9 @@
+Some wishes:
+
+JSON-LD SERIALIZATION
+Currently, only the server provides json-ld serialization of a graph (server.js, line 370). 
+I would like to have this serialization available in the rdf_js_interface, like the n3 serialization (rdf_js_interface.js, line 599).
+
+LOST BUT FOUND
+js-sparql-parser contains, in lib/pegjs/examples, some pegjs grammars, among which a complete turtle grammar!
+This is a step in the direction of an ACE editor with semantic syntax coloring for n3 (and for sparql, as there is a sparql grammar, too), following the pattern I applied for TalkTalk.

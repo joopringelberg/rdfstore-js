@@ -1272,25 +1272,17 @@ QueryEngine.QueryEngine.prototype.executeUpdate = function(syntaxTree, callback)
 
         var aqt = that.abstractQueryTree.parseExecutableUnit(units[i]);
         if(aqt.kind === 'insertdata') {
+        
             for(var j=0; j<aqt.quads.length; j++) {
                 var quad = aqt.quads[j];
                 var result = that._executeQuadInsert(quad, queryEnv);
+                
                 if(result !== true) {
                     return callback(false, error);
                 }
             }
             
-            // Joop Ringelberg
-            this.callbacksBackend.endGraphModification(
-            	function()
-            	{
-	            	callback(true);
-	        	});
-	        
-	        /*
-	         * Original
             callback(true);
-	         */
             
         } else if(aqt.kind === 'deletedata') {
             for(var j=0; j<aqt.quads.length; j++) {
